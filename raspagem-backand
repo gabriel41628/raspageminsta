@@ -1,0 +1,45 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const axios = require('axios'); // Para requisições externas (raspagem real)
+
+const app = express();
+const PORT = 3000;
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+
+// Rota principal para raspagem
+app.post('/raspar', async (req, res) => {
+    const { codigo, url, quantidade, postagens } = req.body;
+
+    // Validação básica
+    if (!codigo || !url || !quantidade || !postagens) {
+        return res.status(400).json({ error: 'Todos os campos são obrigatórios!' });
+    }
+
+    if (!url.startsWith("https://www.instagram.com/")) {
+        return res.status(400).json({ error: 'URL inválida. Deve ser um perfil do Instagram.' });
+    }
+
+    try {
+        // Simulação de raspagem (você pode substituir isso com a lógica real)
+        const mockData = Array.from({ length: parseInt(postagens) }, (_, i) => ({
+            codigo,
+            url: `${url}?post=${i + 1}`,
+            quantidade,
+        }));
+
+        // Responder com os dados raspados
+        res.status(200).json(mockData);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao processar a raspagem.' });
+    }
+});
+
+// Inicialização do servidor
+app.listen(PORT, () => {
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
+});
