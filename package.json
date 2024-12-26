@@ -1,5 +1,5 @@
 {
-  "type": "module"
+  "type": "module",
   "name": "raspagem-backend",
   "version": "1.0.0",
   "description": "Servidor para raspagem de postagens do Instagram",
