@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 // Configuração do CORS para aceitar apenas do seu site
 const corsOptions = {
     origin: 'https://viraldemais.pro', // Restrito para seu site específico
-    methods: 'POST',
+    methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type'],
 };
 app.use(cors(corsOptions));
